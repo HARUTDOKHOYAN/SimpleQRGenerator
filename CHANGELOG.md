@@ -1,3 +1,10 @@
+## [1.1.0](https://github.com/HARUTDOKHOYAN/SimpleQRGenerater/compare/v1.0.0...v1.1.0) (2025-10-10)
+
+
+### Features
+
+* add qrcode logic in project , - implement QRSegment finder , - implement basic svg generator ([487d5ed](https://github.com/HARUTDOKHOYAN/SimpleQRGenerater/commit/487d5ed3a67db63db6ce67ebb515dce071a4600d))
+
 ## 1.0.0 (2025-10-03)
 
 
