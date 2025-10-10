@@ -1,2 +1,2 @@
-console.log('Happy developing ✨')
-console.log('Happy developing ✨')
+
+export { generateQRSvg, qrToSvg } from './QRGenerator';
