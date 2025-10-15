@@ -1,8 +1,9 @@
-import {qrcodegen } from './qrcore'
-import Ecc = qrcodegen.QrCode.Ecc;
+import {qrcodegen} from './qrcore'
 import {GetQRSegmentByCoordinates} from "./Helpers/QRMatrixHelper";
 import {QRSegment} from "./Types/QREnums";
 import {QrSvgOptions} from "./Types/QRTypes";
+import SVGBuildHelper from "./Helpers/SVGBuildHelper";
+import Ecc = qrcodegen.QrCode.Ecc;
 
 
 export function generateQRSvg(text: string, options: QrSvgOptions = {}): string {
@@ -21,9 +22,14 @@ export function qrToSvg(qr: qrcodegen.QrCode, options: QrSvgOptions = {}): strin
   const moduleScale = options.moduleScale ?? 1;
   const r = 0.5 * moduleScale;
 
-  let circles = '';
-  let borderPath = '';
-  let otherPath = '';
+  const svgBuilder = new SVGBuildHelper()
+  svgBuilder
+      .SetViewPortSize({minX:0,minY:0,width: vb, height:vb})
+      .SetBackground(light)
+      .SetMainPathColor(dark)
+      .RegisterSoldSegments(`${QRSegment.FinderInside}`)
+      .RegisterSoldSegments(`${QRSegment.FinderBorder}`)
+      .RegisterPathSegments(`${QRSegment.Data}`)
 
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
@@ -32,21 +38,21 @@ export function qrToSvg(qr: qrcodegen.QrCode, options: QrSvgOptions = {}): strin
       if (GetQRSegmentByCoordinates({X :x, Y:y}, size) === QRSegment.FinderInside) {
         const cx = x + margin + 0.5;
         const cy = y + margin + 0.5;
-        circles += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${dark}"/>`;
+        svgBuilder.AddCircleInSegment(`${QRSegment.FinderInside}`,cx,cy,r,dark)
         continue;
       }
 
       if (GetQRSegmentByCoordinates({X :x, Y:y}, size) === QRSegment.FinderBorder) {
         const cx = x + margin + 0.5;
         const cy = y + margin + 0.5;
-        circles += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${dark}"/>`;
+        svgBuilder.AddCircleInSegment(`${QRSegment.FinderBorder}`,cx,cy,r,dark)
         continue;
       }
 
       if (GetQRSegmentByCoordinates({X :x, Y:y}, size) === QRSegment.Data) {
         const x0 = x + margin;
         const y0 = y + margin;
-        otherPath += `M${x0} ${y0}h1v1h-1z`;
+        svgBuilder.AddPathInSegment(`${QRSegment.Data}`,`M${x0} ${y0}h1v1h-1z`)
       }
     }
   }
@@ -62,14 +68,7 @@ export function qrToSvg(qr: qrcodegen.QrCode, options: QrSvgOptions = {}): strin
   //   finderRings += `<circle cx="${cx}" cy="${cy}" r="${ringRadius}" stroke="${dark}" stroke-width="${strokeWidth}" fill="none"/>`;
   // }
 
-  const svg =
-      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${vb} ${vb}" shape-rendering="crispEdges">` +
-      `<rect width="100%" height="100%" fill="${light}"/>` +
-      // finderRings +
-      (otherPath ? `<path d="${otherPath}" fill="${dark}"/>` : '') +
-      (circles ? circles : '') +
-      `</svg>`;
-  return svg;
+  return svgBuilder.BuildSVG();
 
 
   // // Circular modules

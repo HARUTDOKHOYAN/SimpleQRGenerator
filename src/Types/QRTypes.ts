@@ -9,3 +9,15 @@ export type QrSvgOptions = {
     lightColor?: string;
     moduleScale?: number; // for circle radius (0..1), 1 => r = 0.5
 };
+
+export type ViewBoxSize = {
+    minX:number;
+    minY:number;
+    width:number;
+    height:number;
+}
+
+export type SVGPath = {
+    data:string;
+    color:string;
+}
