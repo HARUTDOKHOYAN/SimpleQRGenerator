@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "private": false,
   "description": "This project implements a QR code generator featuring resizing functionality, customizable background and foreground colors, adjustable error correction levels, shape structure modifications, and export capabilities for JPEG and SVG formats",
-  "homepage": "https://github.com/HARUTDOKHOYAN/SimpleQRGenerater#readme",
+  "homepage": "https://github.com/HARUTDOKHOYAN/SimpleQRGenerator#readme",
   "bugs": {
-    "url": "https://github.com/HARUTDOKHOYAN/SimpleQRGenerater/issues"
+    "url": "https://github.com/HARUTDOKHOYAN/SimpleQRGenerator/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HARUTDOKHOYAN/SimpleQRGenerater.git"
+    "url": "git+https://github.com/HARUTDOKHOYAN/SimpleQRGenerator.git"
   },
   "license": "ISC",
   "author": "SkyOrdy",
