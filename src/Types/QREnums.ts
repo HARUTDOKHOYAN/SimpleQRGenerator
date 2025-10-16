@@ -3,3 +3,12 @@ export enum QRSegment{
     FinderBorder=1,
     Data =2
 }
+
+export enum SegmentStrategyType
+{
+    Circular,
+    Square,
+    FinderBorderBagel,
+    FinderInside,
+    FinderInsideTriangle
+}

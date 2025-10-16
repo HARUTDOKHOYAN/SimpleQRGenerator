@@ -33,7 +33,7 @@ export default class SVGBuildHelper {
     public AddCircleInSegment(segmentName:string, x:number , y:number , radius:number , color:string='') : SVGBuildHelper {
         if(color === '')
             color = this._mainPathColor;
-        if(this._solidSegments.has(segmentName)) {
+        if(this._solidSegments.has(segmentName)){
             let segment: string = this._solidSegments.get(segmentName) ?? '';
             segment +=  `<circle cx="${x}" cy="${y}" r="${radius}" fill="${color}"/>`;
             this._solidSegments.delete(segmentName);
@@ -49,6 +49,42 @@ export default class SVGBuildHelper {
             let segment: SVGPath = this._pathSegments.get(segmentName)?? {data:"" , color: ""};
             segment.data+=newSegment;
             segment.color = color;
+        }
+        return this;
+    }
+
+    public AddRectInSegment(segmentName:string, x:number, y:number, size:number, color:string = ''): SVGBuildHelper {
+        if (color === '')
+            color = this._mainPathColor;
+        if (this._solidSegments.has(segmentName)) {
+            let segment: string = this._solidSegments.get(segmentName) ?? '';
+            segment += `<rect x="${x}" y="${y}" width="${size}" height="${size}" fill="${color}"/>`;
+            this._solidSegments.delete(segmentName);
+            this._solidSegments.set(segmentName, segment);
+        }
+        return this;
+    }
+
+    public AddRingInSegment(segmentName:string, cx:number, cy:number, radius:number, strokeWidth:number = 1, color:string = ''): SVGBuildHelper {
+        if (color === '')
+            color = this._mainPathColor;
+        if (this._solidSegments.has(segmentName)) {
+            let segment: string = this._solidSegments.get(segmentName) ?? '';
+            segment += `<circle cx="${cx}" cy="${cy}" r="${radius}" stroke="${color}" stroke-width="${strokeWidth}" fill="none"/>`;
+            this._solidSegments.delete(segmentName);
+            this._solidSegments.set(segmentName, segment);
+        }
+        return this;
+    }
+
+    public AddPolygonInSegment(segmentName:string, points:string, color:string = ''): SVGBuildHelper {
+        if (color === '')
+            color = this._mainPathColor;
+        if (this._solidSegments.has(segmentName)) {
+            let segment: string = this._solidSegments.get(segmentName) ?? '';
+            segment += `<polygon points="${points}" fill="${color}"/>`;
+            this._solidSegments.delete(segmentName);
+            this._solidSegments.set(segmentName, segment);
         }
         return this;
     }

@@ -1,10 +1,17 @@
 import { describe, it, expect, vi } from 'vitest';
 import { generateQRSvg } from '../src';
 describe('entrypoint side effects', () => {
-  it('logs the greeting at least once on import', async () => {
-    const qr = generateQRSvg("test");
+  it('generates svg with circular modules by default', () => {
+    const svg = generateQRSvg("test ja adj jajdvjaj jasdlvjk ajsdlj");
+    console.log(svg);
+  });
 
-    console.log(qr);
+  it('generates svg with square modules when strategy is square', () => {
+    const svg = generateQRSvg("test", { segmentStrategy: 'square' });
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('</svg>');
+    expect(svg).toContain('<rect');
+    console.log(svg);
   });
 });
 
