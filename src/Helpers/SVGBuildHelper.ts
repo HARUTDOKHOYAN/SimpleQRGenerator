@@ -10,6 +10,7 @@ export default class SVGBuildHelper {
         this._mainSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${size.minX} ${size.minY} ${size.width} ${size.height}" shape-rendering="${rendering}">`
         return this;
     }
+    
     public SetBackground(color :string): SVGBuildHelper {
         this._mainSVG += `<rect width="100%" height="100%" fill="${color}"/>`
         return this;
@@ -20,16 +21,18 @@ export default class SVGBuildHelper {
         return this;
     }
 
-    public RegisterSoldSegments(segmentName:string) : SVGBuildHelper {
+    public RegisterSolidSegments(segmentName:string) : SVGBuildHelper {
         if(!this._solidSegments.has(segmentName))
              this._solidSegments.set(segmentName , '');
         return this;
     }
+
     public RegisterPathSegments(segmentName:string) : SVGBuildHelper {
         if(!this._pathSegments.has(segmentName))
             this._pathSegments.set(segmentName , {data:"" , color:""});
         return this;
     }
+
     public AddCircleInSegment(segmentName:string, x:number , y:number , radius:number , color:string='') : SVGBuildHelper {
         if(color === '')
             color = this._mainPathColor;
@@ -42,14 +45,18 @@ export default class SVGBuildHelper {
         return this;
     }
 
-    public AddPathInSegment(segmentName:string , newSegment:string ,color :string ='') : SVGBuildHelper {
+    public AddPathInSegment(segmentName:string , newSegment:string ,color :string ='', fillRule?: 'nonzero' | 'evenodd', clipRule?: 'nonzero' | 'evenodd') : SVGBuildHelper {
         if(color === '')
             color = this._mainPathColor;
-        if(this._pathSegments.has(segmentName)){
-            let segment: SVGPath = this._pathSegments.get(segmentName)?? {data:"" , color: ""};
-            segment.data+=newSegment;
-            segment.color = color;
+        if(!this._pathSegments.has(segmentName)){
+            // Auto-register if not already present
+            this._pathSegments.set(segmentName, { data: "", color: "" });
         }
+        const segment = this._pathSegments.get(segmentName)!;
+        segment.data += newSegment;
+        segment.color = color;
+        if (fillRule) segment.fillRule = fillRule;
+        if (clipRule) segment.clipRule = clipRule;
         return this;
     }
 
@@ -91,10 +98,14 @@ export default class SVGBuildHelper {
 
     public BuildSVG() : string {
         this._solidSegments.forEach((value) => {
-            this._mainSVG += value;
+            if (value !== '') this._mainSVG += value;
         });
         this._pathSegments.forEach((value) => {
-            this._mainSVG += `<path d="${value.data}" fill="${value.color}"/>`;
+            if (value.data !== '') {
+                const fillRuleAttr = value.fillRule ? ` fill-rule="${value.fillRule}"` : '';
+                const clipRuleAttr = value.clipRule ? ` clip-rule="${value.clipRule}"` : '';
+                this._mainSVG += `<path d="${value.data}" fill="${value.color}"${fillRuleAttr}${clipRuleAttr}/>`;
+            }
         });
         this._mainSVG += `</svg>`;
         return this._mainSVG;

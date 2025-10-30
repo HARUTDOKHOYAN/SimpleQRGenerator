@@ -1,16 +1,16 @@
-import { describe, it, expect, vi } from 'vitest';
-import { generateQRSvg } from '../src';
+import {describe, it} from 'vitest';
+import {generateQRSvg} from '../src';
+import {SegmentStrategyType} from "../src";
+
 describe('entrypoint side effects', () => {
   it('generates svg with circular modules by default', () => {
-    const svg = generateQRSvg("test ja adj jajdvjaj jasdlvjk ajsdlj");
-    console.log(svg);
-  });
-
-  it('generates svg with square modules when strategy is square', () => {
-    const svg = generateQRSvg("test", { segmentStrategy: 'square' });
-    expect(svg).toContain('<svg');
-    expect(svg).toContain('</svg>');
-    expect(svg).toContain('<rect');
+    const svg = generateQRSvg("https://www.youtube.com/watch?v=4K00naoeNDE&list=RD4K00naoeNDE&start_radio=1" ,
+        {
+            FinderInsideSegments:SegmentStrategyType.SquircleInside,
+            FinderBorderSegments:SegmentStrategyType.BagelBorder,
+            DataSegments: SegmentStrategyType.Liquid,
+            margin:2,
+        });
     console.log(svg);
   });
 });

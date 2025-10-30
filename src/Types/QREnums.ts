@@ -6,9 +6,16 @@ export enum QRSegment{
 
 export enum SegmentStrategyType
 {
+    None,
     Circular,
     Square,
-    FinderBorderBagel,
-    FinderInside,
-    FinderInsideTriangle
+    Triangle,
+    BagelBorder,
+    CircalInside,
+    RoundedSquare,
+    SquircleBorder,
+    Diamond,
+    CornerflowInside,
+    CornerflowBorder,
+    SquircleInside
 }
