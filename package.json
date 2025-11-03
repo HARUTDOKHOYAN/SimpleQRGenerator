@@ -13,6 +13,23 @@
   },
   "license": "ISC",
   "author": "SkyOrdy",
+  "keywords": [
+    "qr",
+    "qr-code",
+    "qrcode",
+    "qr-generator",
+    "wifi-qr",
+    "svg",
+    "customizable",
+    "barcode",
+    "2d-barcode",
+    "wifi",
+    "vcard",
+    "email",
+    "sms",
+    "phone",
+    "url"
+  ],
   "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {

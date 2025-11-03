@@ -1,4 +1,6 @@
 import {SegmentStrategyType} from "./QREnums";
+import {qrcodegen} from "../qrcore";
+import Ecc = qrcodegen.QrCode.Ecc;
 
 export type Point = {
     X : number;
@@ -20,7 +22,8 @@ export type QrSvgOptions = {
     margin?: number; 
     foregroundColor?: string; 
     backgroundColor?: string;
-    moduleScale?: number; 
+    moduleScale?: number;
+    ErrorCorrection?: Ecc;
     FinderInsideSegments?:FinderInsideSegments;
     FinderBorderSegments?:FinderBorderSegments;
     DataSegments?:DataSupportedSegments;

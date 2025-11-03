@@ -1,18 +1,29 @@
 import {describe, it} from 'vitest';
-import {generateQRSvg} from '../src';
-import {SegmentStrategyType} from "../src";
+import {Ecc, QRBuilder, QRContentType, SegmentStrategyType} from '../src';
 
 describe('entrypoint side effects', () => {
   it('generates svg with circular modules by default', () => {
-    const svg = generateQRSvg("https://www.youtube.com/watch?v=4K00naoeNDE&list=RD4K00naoeNDE&start_radio=1" ,
-        {
-            FinderInsideSegments:SegmentStrategyType.SquircleInside,
-            FinderBorderSegments:SegmentStrategyType.BagelBorder,
-            DataSegments: SegmentStrategyType.Liquid,
-            margin:2,
-        });
-    console.log(svg);
+
+      const builder = new QRBuilder();
+
+      const svg = builder
+          .SetQRType(QRContentType.EMAIL)
+          .SetQRConfig( {
+              email: "harut.dokhoyan00@gmail.com",
+              subject: "How are you?",
+              body: "I crate QR",
+              })
+          .SetQrOptions({
+              FinderInsideSegments: SegmentStrategyType.SquircleInside,
+              FinderBorderSegments: SegmentStrategyType.BagelBorder,
+              DataSegments: SegmentStrategyType.Square,
+              margin: 2,
+              ErrorCorrection: Ecc.HIGH
+          })
+          .BuildQRSVG();
+      console.log(svg);
   });
 });
+
 
 
