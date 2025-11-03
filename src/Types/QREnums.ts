@@ -11,7 +11,7 @@ export enum SegmentStrategyType
     Square,
     Triangle,
     BagelBorder,
-    CircalInside,
+    CircularInside,
     RoundedSquare,
     SquircleBorder,
     Diamond,

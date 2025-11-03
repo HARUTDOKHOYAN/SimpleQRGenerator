@@ -14,7 +14,6 @@ export function formatWiFi(config: WiFiConfig): string {
     const password = config.password || '';
     const hidden = config.hidden ? 'true' : 'false';
     
-    // Escape special characters in SSID and password
     const escapedSsid = escapeSpecialChars(config.ssid);
     const escapedPassword = escapeSpecialChars(password);
     
@@ -34,7 +33,6 @@ export function formatWiFi(config: WiFiConfig): string {
 }
 
 export function formatPhone(config: PhoneConfig): string {
-    // Remove non-numeric characters except + for international format
     const cleanNumber = config.phoneNumber.replace(/[^\d+]/g, '');
     return `TEL:${cleanNumber}`;
 }
@@ -73,7 +71,6 @@ export function formatEmail(config: EmailConfig): string {
 export function formatURL(config: URLConfig): string {
     let url = config.url;
     
-    // Add protocol if missing
     if (!url.match(/^[a-zA-Z]+:\/\//)) {
         url = `https://${url}`;
     }
@@ -85,7 +82,7 @@ export function formatText(config: TextConfig): string {
     return config.text;
 }
 
-export function formatQRContent(type:QRContentType ,data:any ): string {
+export function formatQRContent(type: QRContentType, data: any): string {
     switch (type) {
         case QRContentType.WIFI:
             return formatWiFi(data);

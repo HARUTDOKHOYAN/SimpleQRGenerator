@@ -33,7 +33,7 @@ export type FinderInsideSegments =
     SegmentStrategyType.Circular |
     SegmentStrategyType.Diamond |
     SegmentStrategyType.Square |
-    SegmentStrategyType.CircalInside |
+    SegmentStrategyType.CircularInside |
     SegmentStrategyType.RoundedSquare |
     SegmentStrategyType.CornerflowInside |
     SegmentStrategyType.SquircleInside;
