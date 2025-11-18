@@ -6,18 +6,18 @@ describe('entrypoint side effects', () => {
       const builder = new QRBuilder();
 
       const svg = builder
-          .setQRType(QRContentType.EMAIL)
+          .setQRType(QRContentType.URL)
           .setQRConfig({
-              email: "harut.dokhoyan00@gmail.com",
-              subject: "How are you?",
-              body: "I create QR",
+              text: "harut.dokhoyan00@gmail.com",
           })
           .setQrOptions({
-              FinderInsideSegments: SegmentStrategyType.SquircleInside,
-              FinderBorderSegments: SegmentStrategyType.BagelBorder,
-              DataSegments: SegmentStrategyType.Square,
-              margin: 2,
-              ErrorCorrection: Ecc.HIGH
+              FinderInsideSegments: SegmentStrategyType.CornerflowBorder,
+              FinderBorderSegments: SegmentStrategyType.Circular,
+              DataSegments: SegmentStrategyType.Circular,
+              margin: 10,
+              ErrorCorrection: Ecc.HIGH,
+              foregroundColor:"#42cef5",
+              backgroundColor:"#859194",
           })
           .buildQRSVG();
       console.log(svg);

@@ -37,6 +37,7 @@ export type FinderInsideSegments =
     SegmentStrategyType.RoundedSquare |
     SegmentStrategyType.CornerflowInside |
     SegmentStrategyType.SquircleInside;
+
 export type FinderBorderSegments =
     SegmentStrategyType.Circular |
     SegmentStrategyType.Square |
