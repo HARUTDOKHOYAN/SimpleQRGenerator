@@ -108,10 +108,3 @@ Segment strategies are implemented via a factory that produces circles, rounded 
 
 This project embeds the MIT-licensed `qrcodegen` implementation by Project Nayuki.[^4]
 
-
-[^1]: See the builder workflow, validation, defaults, and SVG generation in `src/QRBuilder.ts`.
-[^2]: Content formatter logic lives in `src/Helpers/QRContentFormatter.ts` and content typings in `src/Types/QRContentTypes.ts`.
-[^3]: Segment enums and strategy factory implementations reside in `src/Types/QREnums.ts`, `src/Types/QRTypes.ts`, and `src/SegmentCreator/ISegmentCreate.ts`.
-[^4]: The underlying QR matrix generation is powered by `src/qrcore.ts`.
-[^5]: Rendering option typings and defaults are defined in `src/Types/QRTypes.ts` and `src/QRBuilder.ts`.
-[^6]: SVG assembly helpers are implemented in `src/Helpers/SVGBuildHelper.ts`.
