@@ -1,3 +1,11 @@
+## [1.2.0](https://github.com/HARUTDOKHOYAN/SimpleQRGenerator/compare/v1.1.0...v1.2.0) (2025-11-18)
+
+
+### Features
+
+* fix problems  after cod review ([a382f3a](https://github.com/HARUTDOKHOYAN/SimpleQRGenerator/commit/a382f3a929cbcb861ec5c97a77fd7f81e16df886))
+* fix unit test problem ([9d2d442](https://github.com/HARUTDOKHOYAN/SimpleQRGenerator/commit/9d2d4421532abd5679fccd4484737b1df4310f24))
+
 ## [1.1.0](https://github.com/HARUTDOKHOYAN/SimpleQRGenerater/compare/v1.0.0...v1.1.0) (2025-10-10)
 
 
