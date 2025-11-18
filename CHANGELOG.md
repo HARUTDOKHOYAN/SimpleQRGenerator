@@ -1,3 +1,10 @@
+## [1.3.0](https://github.com/HARUTDOKHOYAN/SimpleQRGenerator/compare/v1.2.0...v1.3.0) (2025-11-18)
+
+
+### Features
+
+* update readme ([78f93b9](https://github.com/HARUTDOKHOYAN/SimpleQRGenerator/commit/78f93b917301bc538d2e256b07c49f1db39ea413))
+
 ## [1.2.0](https://github.com/HARUTDOKHOYAN/SimpleQRGenerator/compare/v1.1.0...v1.2.0) (2025-11-18)
 
 
