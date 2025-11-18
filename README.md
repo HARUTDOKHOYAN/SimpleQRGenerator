@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Simple QR Generator
 
 Simple QR Generator is a lightweight TypeScript toolkit for producing highly-customizable QR codes as SVG strings. It wraps the battle-tested `qrcodegen` algorithm with a fluent builder API, rich content helpers (WiFi, SMS, email, phone, URLs, free text), and advanced styling controls for finder patterns and data modules.
@@ -115,3 +116,7 @@ This project embeds the MIT-licensed `qrcodegen` implementation by Project Nayuk
 [^4]: The underlying QR matrix generation is powered by `src/qrcore.ts`.
 [^5]: Rendering option typings and defaults are defined in `src/Types/QRTypes.ts` and `src/QRBuilder.ts`.
 [^6]: SVG assembly helpers are implemented in `src/Helpers/SVGBuildHelper.ts`.
+=======
+# SimpleQRGenerator
+This project implements a QR code generator featuring resizing functionality, customizable background and foreground colors, adjustable error correction levels, shape structure modifications, and export capabilities for JPEG and SVG formats
+>>>>>>> 2cb954c6dc3a471cfe8820fab930cf841a0a3845
