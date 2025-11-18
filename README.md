@@ -4,12 +4,9 @@ Simple QR Generator is a lightweight TypeScript toolkit for producing highly-cus
 
 ## Features
 - Fluent `QRBuilder` guides you through setting the content type, providing structured config data, tuning rendering options, and exporting an SVG payload in one chainable flow.[^1]
-- Built-in content formatters escape user data safely and normalize common QR payloads including WiFi credentials, phone numbers, SMS messages, emails, URLs, and plain text.[^2]
 - Fine-grained styling: switch finder borders, finder centers, and data modules between circular, square, rounded, squircle, triangle, diamond, bagel, and corner-flow variants to match your brand.[^3]
-- Sensible defaults for margins, colors, module scale, and error correction levels with the ability to override everything when needed.[^1]
-- Generates standards-compliant matrices via the upstream `qrcodegen` reference implementation to ensure excellent readability across scanners.[^4]
-- Ships with Vitest-powered unit tests and coverage tooling for confident integrations.
-
+- You can add your svg styling type using **ISegmentCreateStrategy** interface.[^3]
+- 
 ## Installation
 
 ```bash
@@ -100,9 +97,11 @@ Segment strategies are implemented via a factory that produces circles, rounded 
 
 ## QR Gallery
 
-- ![Rounded squircle palette](docs/assets/qr-example-1.svg)
-- ![Square modules & bagel borders](docs/assets/qr-example-2.svg)
-- ![Triangle modules & cornerflow finders](docs/assets/qr-example-3.svg)
+<p float="left">
+<img style="display:inline-block" src="docs/assets/qr-example-1.svg" width="240" />
+<img style="display:inline-block" src="docs/assets/qr-example-2.svg" width="240" />
+<img style="display:inline-block" src="docs/assets/qr-example-3.svg" width="240" />
+</p>
 
 Each sample was generated with `QRBuilder` by swapping segment strategies, colors, and margins to highlight the styling surface area.
 
