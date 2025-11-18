@@ -6,7 +6,7 @@ Simple QR Generator is a lightweight TypeScript toolkit for producing highly-cus
 - Fluent `QRBuilder` guides you through setting the content type, providing structured config data, tuning rendering options, and exporting an SVG payload in one chainable flow.[^1]
 - Fine-grained styling: switch finder borders, finder centers, and data modules between circular, square, rounded, squircle, triangle, diamond, bagel, and corner-flow variants to match your brand.[^3]
 - You can add your svg styling type using **ISegmentCreateStrategy** interface.[^3]
-- 
+
 ## Installation
 
 ```bash
@@ -57,8 +57,6 @@ console.log(svg); // => <svg ...>...</svg>
 | `setQrOptions(options)` | Adjust rendering options (colors, margins, module scale, error correction, segment strategies). |
 | `buildQRSVG()` | Validates prerequisites, formats the payload, encodes the QR matrix, and returns an SVG string. |
 
-`QRBuilder` enforces that type, config, and options are present before building, reducing runtime mistakes.[^1]
-
 ### Content Helpers
 
 Supported content enums and config interfaces:
@@ -103,7 +101,7 @@ Segment strategies are implemented via a factory that produces circles, rounded 
 <img style="display:inline-block" src="docs/assets/qr-example-3.svg" width="240" />
 </p>
 
-Each sample was generated with `QRBuilder` by swapping segment strategies, colors, and margins to highlight the styling surface area.
+Each sample was generated with `QRBuilder` by swapping segment strategies to highlight the segnebt styling.
 
 ## Extending Segment Strategies
 
@@ -165,19 +163,9 @@ const svg = new QRBuilder()
 
 Because everything funnels through the same factory and helper utilities, new strategies automatically benefit from existing defaults, coloring, and SVG assembly logic.
 
-## Testing & Tooling
-
-- `npm test` runs the Vitest suite with coverage.
-- `npm run build` compiles TypeScript sources to `dist/`.
-- `npm run test:watch` starts Vitest in watch mode for local development.
-
 ## Acknowledgements
 
 This project embeds the MIT-licensed `qrcodegen` implementation by Project Nayuki.[^4]
-
-## License
-
-ISC © SkyOrdy
 
 ---
 
