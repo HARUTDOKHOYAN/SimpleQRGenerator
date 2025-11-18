@@ -6,12 +6,12 @@ describe('entrypoint side effects', () => {
       const builder = new QRBuilder();
 
       const svg = builder
-          .setQRType(QRContentType.URL)
+          .setQRType(QRContentType.TEXT)
           .setQRConfig({
               text: "harut.dokhoyan00@gmail.com",
           })
           .setQrOptions({
-              FinderInsideSegments: SegmentStrategyType.CornerflowBorder,
+              FinderInsideSegments: SegmentStrategyType.Diamond,
               FinderBorderSegments: SegmentStrategyType.Circular,
               DataSegments: SegmentStrategyType.Circular,
               margin: 10,
