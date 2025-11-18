@@ -98,6 +98,74 @@ Segment strategies are implemented via a factory that produces circles, rounded 
 
 `SVGBuildHelper` composes the final markup by registering segment buckets, accumulating shapes, and emitting `<rect>`, `<circle>`, `<polygon>`, or `<path>` elements with optional `fill-rule` / `clip-rule` attributes.[^6] The result is a standalone `<svg>` string ready to inline in HTML, convert to raster imagery, or pipe into downstream tooling.
 
+## QR Gallery
+
+- ![Rounded squircle palette](docs/assets/qr-example-1.svg)
+- ![Square modules & bagel borders](docs/assets/qr-example-2.svg)
+- ![Triangle modules & cornerflow finders](docs/assets/qr-example-3.svg)
+
+Each sample was generated with `QRBuilder` by swapping segment strategies, colors, and margins to highlight the styling surface area.
+
+## Extending Segment Strategies
+
+`SegmentCreatorFactory` is the central registry that maps a `SegmentStrategyType` enum to a concrete `ISegmentCreateStrategy` implementation.[^3] Add your own glyphs in three steps:
+
+1. **Create a new enum entry** in `SegmentStrategyType` (and update the `FinderInsideSegments`, `FinderBorderSegments`, or `DataSupportedSegments` unions if it applies).[^5]
+2. **Implement a strategy** that draws your shape with `SVGBuildHelper`. You can mix primitives (`AddRectInSegment`, `AddCircleInSegment`, `AddPathInSegment`, etc.) and inspect `SegmentData.neighbors` to merge corners.
+3. **Register the strategy** inside the `SegmentCreatorFactory` constructor so builders can request it by enum value.
+
+Example skeleton for a diamond-outline finder border:
+
+```ts
+// src/Types/QREnums.ts
+export enum SegmentStrategyType {
+  // ...
+  DiamondOutline,
+}
+
+// src/SegmentCreator/ISegmentCreate.ts
+class DiamondOutlineFinderBorderStrategy implements ISegmentCreateStrategy {
+  createSegmentStrategy(builder: SVGBuildHelper, data: SegmentData): void {
+    const size = data.size;
+    const anchors = [
+      { x0: 0, y0: 0 },
+      { x0: size - FINDER_SIZE, y0: 0 },
+      { x0: 0, y0: size - FINDER_SIZE },
+    ];
+    const isAnchorTopLeft = anchors.some(a => a.x0 === data.point.X && a.y0 === data.point.Y);
+    if (!isAnchorTopLeft) return;
+
+    for (const { x0, y0 } of anchors) {
+      const x = x0 + data.margin;
+      const y = y0 + data.margin;
+      const d = `M${x + 3.5} ${y} L${x + 7} ${y + 3.5} L${x + 3.5} ${y + 7} L${x} ${y + 3.5} Z`;
+      builder.AddPathInSegment(data.segmentName, d, data.color);
+    }
+  }
+}
+
+export class SegmentCreatorFactory {
+  constructor() {
+    // ...
+    this.strategies.set(SegmentStrategyType.DiamondOutline, new DiamondOutlineFinderBorderStrategy());
+  }
+}
+```
+
+Once registered, choose the strategy in your build chain:
+
+```ts
+const svg = new QRBuilder()
+  .setQRType(QRContentType.TEXT)
+  .setQRConfig({ text: 'Custom finder diamond outline' })
+  .setQrOptions({
+    FinderBorderSegments: SegmentStrategyType.DiamondOutline,
+  })
+  .buildQRSVG();
+```
+
+Because everything funnels through the same factory and helper utilities, new strategies automatically benefit from existing defaults, coloring, and SVG assembly logic.
+
 ## Testing & Tooling
 
 - `npm test` runs the Vitest suite with coverage.
@@ -107,4 +175,17 @@ Segment strategies are implemented via a factory that produces circles, rounded 
 ## Acknowledgements
 
 This project embeds the MIT-licensed `qrcodegen` implementation by Project Nayuki.[^4]
+
+## License
+
+ISC © SkyOrdy
+
+---
+
+[^1]: See the builder workflow, validation, defaults, and SVG generation in `src/QRBuilder.ts`.
+[^2]: Content formatter logic lives in `src/Helpers/QRContentFormatter.ts` and content typings in `src/Types/QRContentTypes.ts`.
+[^3]: Segment enums and strategy factory implementations reside in `src/Types/QREnums.ts`, `src/Types/QRTypes.ts`, and `src/SegmentCreator/ISegmentCreate.ts`.
+[^4]: The underlying QR matrix generation is powered by `src/qrcore.ts`.
+[^5]: Rendering option typings and defaults are defined in `src/Types/QRTypes.ts` and `src/QRBuilder.ts`.
+[^6]: SVG assembly helpers are implemented in `src/Helpers/SVGBuildHelper.ts`.
 

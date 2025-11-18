@@ -8,16 +8,14 @@ describe('entrypoint side effects', () => {
       const svg = builder
           .setQRType(QRContentType.TEXT)
           .setQRConfig({
-              text: "harut.dokhoyan00@gmail.com",
+              text: "Test",
           })
           .setQrOptions({
-              FinderInsideSegments: SegmentStrategyType.Diamond,
-              FinderBorderSegments: SegmentStrategyType.Circular,
-              DataSegments: SegmentStrategyType.Circular,
-              margin: 10,
+              FinderInsideSegments: SegmentStrategyType.CornerflowInside,
+              FinderBorderSegments: SegmentStrategyType.SquircleBorder,
+              DataSegments: SegmentStrategyType.Triangle,
+              margin: 3,
               ErrorCorrection: Ecc.HIGH,
-              foregroundColor:"#42cef5",
-              backgroundColor:"#859194",
           })
           .buildQRSVG();
       console.log(svg);
